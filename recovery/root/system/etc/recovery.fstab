@@ -1,0 +1,11 @@
+system /system ext4 ro wait,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey,
+
+vendor /vendor ext4 ro wait,avb,logical,first_stage_mount,
+
+product /product ext4 ro wait,avb,logical,first_stage_mount,
+
+# 155 "vendor/mediatek/proprietary/hardware/fstab/mt6765/fstab.in.mt6765"
+
+/dev/block/platform/bootdevice/by-name/md_udc /metadata ext4 noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount
+/dev/block/platform/bootdevice/by-name/userdata /data f2fs noatime,nosuid,nodev,discard,flush_merge,reserve_root=134217,resgid=1065,inlinecrypt,alloc_mode=reuse,fsync_mode=nobarrier,checkpoint_merge latemount,wait,check,quota,reservedsize=128M,formattable,resize,checkpoint=fs,fileencryption=aes-256-xts
+/dev/block/platform/bootdevice/by-name/para /misc emmc defaults defaults
