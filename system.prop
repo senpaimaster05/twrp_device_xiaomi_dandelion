@@ -1,5 +1,4 @@
 ro.boot.dynamic_partitions=true
-ro.product.first_api_level=29
 ro.product.board=dandelion
 ro.board.platform=mt6765
 ro.secure=0
