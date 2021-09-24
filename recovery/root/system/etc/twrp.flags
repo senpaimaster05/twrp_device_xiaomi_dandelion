@@ -1,0 +1,36 @@
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
+# Currently we dont have e2fsck compiled. So fs check would failed.
+# mount point       fstype    device                                                                flags
+/system             ext4      /dev/block/mapper/system                        flags=display="System"
+/vendor             ext4      /dev/block/mapper/vendor                        flags=display="Vendor"
+/product            ext4      /dev/block/mapper/product                       flags=display="Product"
+
+/system_image       emmc      /dev/block/mapper/system                        flags=display="System image";flashimg=1;
+/vendor_image       emmc      /dev/block/mapper/vendor                        flags=display="Vendor image";flashimg=1;
+/product_image      emmc      /dev/block/mapper/product                       flags=display="Product image";flashimg=1;
+
+/recovery        emmc      /dev/block/platform/bootdevice/by-name/recovery
+/boot            emmc      /dev/block/platform/bootdevice/by-name/boot
+/cache           ext4      /dev/block/platform/bootdevice/by-name/cache
+/protect_f       emmc      /dev/block/platform/bootdevice/by-name/protect1    flags=backup
+/protect_s       emmc      /dev/block/platform/bootdevice/by-name/protect2    flags=backup
+/nvdata          emmc      /dev/block/platform/bootdevice/by-name/nvdata      flags=backup
+/nvcfg           emmc      /dev/block/platform/bootdevice/by-name/nvcfg       flags=backup
+/persist         ext4      /dev/block/platform/bootdevice/by-name/persist
+/persistent      emmc      /dev/block/platform/bootdevice/by-name/frp         flags=backup
+/nvram           emmc      /dev/block/platform/bootdevice/by-name/nvram       flags=backup
+/proinfo         emmc      /dev/block/platform/bootdevice/by-name/proinfo     flags=backup
+/bootloader      emmc      /dev/block/platform/bootdevice/by-name/lk          flags=backup
+/bootloader2     emmc      /dev/block/platform/bootdevice/by-name/lk2         flags=backup
+/dtbo            emmc      /dev/block/platform/bootdevice/by-name/dtbo        flags=backup
+/vbmeta          emmc      /dev/block/platform/bootdevice/by-name/vbmeta      flags=backup;flashimg
+/tee1            emmc      /dev/block/platform/bootdevice/by-name/tee1 /tee1
+/tee2            emmc      /dev/block/platform/bootdevice/by-name/tee2 /tee2
+/boot_para       emmc      /dev/block/platform/bootdevice/by-name/boot_para
+
+# External Storage
+/external_sd		    auto	/dev/block/mmcblk1p1	/dev/block/mmcblk1		flags=display="External SDcard";storage;wipeingui;removable;backup=0
+/usb-otg            vfat     /dev/block/sda1  /dev/block/sdd                     flags=storage;wipeingui;removable
