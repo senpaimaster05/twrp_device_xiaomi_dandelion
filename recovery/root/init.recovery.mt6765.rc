@@ -3,7 +3,8 @@ on init
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
     mkdir /mnt/vendor/persist 0700 root root
     mount ext4 /dev/block/platform/bootdevice/by-name/persist /mnt/vendor/persist
-
+    start keymaster-4-0
+    
 on fs
     install_keyring
     setprop crypto.ready 1
@@ -25,12 +26,17 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
+    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/system/lib/hw:/system/lib:/sbin
     seclabel u:r:recovery:s0
+
+on property:vendor.sys.listener.registered=true
+    start keymaster-4-0
 
 service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.beanpod
     user root
     group root drmrpc
     disabled
+    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/system/lib/hw:/system/lib:/sbin
     seclabel u:r:recovery:s0
 
 on property:hwservicemanager.ready=true
