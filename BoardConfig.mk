@@ -150,3 +150,6 @@ TW_SCREEN_BLANK_ON_BOOT := true
 TW_HAS_MTP := true
 
 PLATFORM_VERSION := 16.1.0
+
+TW_OVERRIDE_SYSTEM_PROPS := \
+    "ro.build.product;ro.build.fingerprint;ro.build.version.incremental;ro.product.device=ro.product.system.device;ro.product.model=ro.product.system.model;ro.product.name=ro.product.system.name"
