@@ -35,7 +35,7 @@ TARGET_CPU_ABI_LIST_32_BIT := armeabi-v7a,armeabi
 
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
-TARGET_IS_32_BIT := true
+TARGET_IS_64_BIT := false
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6765
