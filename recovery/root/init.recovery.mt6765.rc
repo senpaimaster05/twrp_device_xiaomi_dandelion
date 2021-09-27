@@ -25,18 +25,25 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/vendor/lib/system/lib:/system/lib:/sbin
+    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/vendor/lib/system/lib64/hw:/system/lib64:/sbin
     seclabel u:r:recovery:s0
 
 service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.beanpod
     user root
     group root drmrpc
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/vendor/lib/system/lib:/system/lib:/sbin
+    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/vendor/lib/system/lib64:/system/lib64/hw:/sbin
     seclabel u:r:recovery:s0
 
 on property:vendor.sys.listener.registered=true
     start keymaster-4-0
+
+on property:sys.listener.registered=true
+    start keymaster-4-0
+
+on property:crypto.ready=1 && property:hwservicemanager.ready=true
+    start keymaster-4-0
+    start gatekeeper-1-0
 
 on property:hwservicemanager.ready=true
     start keymaster-4-0
