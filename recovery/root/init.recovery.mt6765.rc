@@ -1,8 +1,5 @@
 import /init.recovery.microtrust.rc
 
-on init
-    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
-
 on fs
     install_keyring
 
@@ -19,23 +16,17 @@ service keystore /system/bin/keystore /tmp/misc/keystore
     disabled
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /vendor/bin/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-4-0 /system/bin/android.hardware.keymaster@4.0-service.beanpod
+service keymaster-4-0 /vendor/bin/android.hardware.keymaster@4.0-service.beanpod
     user root
     group root drmrpc
     disabled
     seclabel u:r:recovery:s0
-
-on property:vendor.sys.listener.registered=true
-    start keymaster-4-0
-
-on property:sys.listener.registered=true
-    start keymaster-4-0
 
 on property:hwservicemanager.ready=true
     start gatekeeper-1-0
@@ -62,10 +53,5 @@ on property:twrp.decrypt.done=true
     stop servicemanager
     stop hwservicemanager
 
-on property:enable.fbe.service=1
-    start keymaster-4-0
-    start gatekeeper-1-0
-    
-    
 on boot
     start health-hal-2-1
