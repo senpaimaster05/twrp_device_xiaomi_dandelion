@@ -57,3 +57,5 @@ on property:twrp.decrypt.done=true
 
 on boot
     start health-hal-2-1
+    setprop crypto.ready 1
+    start keymaster-4-0
