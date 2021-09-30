@@ -29,8 +29,8 @@ service keymaster-4-0 /vendor/bin/android.hardware.keymaster@4.0-service.beanpod
     seclabel u:r:recovery:s0
 
 on property:hwservicemanager.ready=true
-    start gatekeeper-1-0
     start keymaster-4-0
+    start gatekeeper-1-0
     
 on property:ro.crypto.state=unsupported
     stop teei_daemon
