@@ -1,12 +1,7 @@
-on init
-    # Create a more standard /dev/block layout for our scripts
-    symlink /dev/block/platform/bootdevice /dev/block/bootdevice
-    mkdir /mnt/vendor/persist 0700 root root
-    mount ext4 /dev/block/platform/bootdevice/by-name/persist /mnt/vendor/persist
-    
+import /init.recovery.microtrust.rc
+
 on fs
     install_keyring
-    setprop crypto.ready 1
 
 service keystore_auth /system/bin/keystore_auth
     oneshot
@@ -21,27 +16,24 @@ service keystore /system/bin/keystore /tmp/misc/keystore
     disabled
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /vendor/bin/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/vendor/lib/system/lib:/system/lib:/sbin
     seclabel u:r:recovery:s0
 
-service keymaster-4-0 /vendor/bin/hw/android.hardware.keymaster@4.0-service.beanpod
+service keymaster-4-0 /vendor/bin/android.hardware.keymaster@4.0-service.beanpod
     user root
     group root drmrpc
     disabled
-    setenv LD_LIBRARY_PATH /vendor/lib:/vendor/lib/hw:/vendor/lib/system/lib:/system/lib:/sbin
     seclabel u:r:recovery:s0
 
 on property:vendor.sys.listener.registered=true
     start keymaster-4-0
 
 on property:hwservicemanager.ready=true
-    start keymaster-4-0
     start gatekeeper-1-0
-
+    
 on property:ro.crypto.state=unsupported
     stop teei_daemon
     stop keymaster-4-0
@@ -62,3 +54,8 @@ on property:twrp.decrypt.done=true
     stop gatekeeper-1-0
     stop servicemanager
     stop hwservicemanager
+
+on boot
+    start health-hal-2-1
+    setprop crypto.ready 1
+    start keymaster-4-0

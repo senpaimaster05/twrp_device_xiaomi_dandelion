@@ -15,7 +15,7 @@
 #
 
 # Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 
 # Inherit some common TWRP stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
@@ -34,12 +34,11 @@ PRODUCT_USE_DYNAMIC_PATITIONS := true
 PRODUCT_SHIPPING_API_LEVEL := 29
 
 # VNDK
-PRODUCT_TARGET_VNDK_VERSION := 29
+PRODUCT_TARGET_VNDK_VERSION := 30
 
 # fastbootd
 PRODUCT_PACKAGES += \
-     android.hardware.fastboot@1.0-impl-mock \
-     fastbootd
+     android.hardware.fastboot@1.0-impl-mock
 
 # HACK: Set vendor patch level
 PRODUCT_PROPERTY_OVERRIDES += \

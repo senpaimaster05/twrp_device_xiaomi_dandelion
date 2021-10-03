@@ -55,9 +55,6 @@ BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_RECOVERY_DTBO := true 
 
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root) \
-            $(DEVICE_PATH)/prebuilt/dtb:dtb.img
-
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
@@ -114,7 +111,6 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
 
 # Crypto
 TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
 
 # Treble
 BOARD_VNDK_VERSION := current
@@ -126,13 +122,11 @@ BOARD_USE_MTK_HARDWARE := true
 TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
 TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
-TW_USE_TOOLBOX := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
-TARGET_RECOVERY_INITRC := $(DEVICE_PATH)/recovery/root/init.recovery.mt6765.rc
+#TARGET_RECOVERY_INITRC := $(DEVICE_PATH)/recovery/root/init.recovery.mt6765.rc
 TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 900
 TW_Y_OFFSET := 80
