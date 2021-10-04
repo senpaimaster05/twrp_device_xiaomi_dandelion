@@ -17,8 +17,6 @@
 # DT PATH
 DEVICE_PATH := device/xiaomi/dandelion
 
-ALLOW_MISSING_DEPENDENCIES := true
-
 # Build Rules
 BUILD_BROKEN_DUP_RULES := true
 
@@ -51,7 +49,6 @@ TARGET_NO_BOOTLOADER := true
 
 # KERNEL
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE :=   0x40078000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x11a88000
@@ -122,7 +119,7 @@ TW_INCLUDE_CRYPTO := true
 BOARD_VNDK_VERSION := current
 
 # MTK
-BOARD_USE_MTK_HARDWARE := true
+BOARD_USES_MTK_HARDWARE := true
 
 # TWRP Configuration
 TW_THEME := portrait_hdpi

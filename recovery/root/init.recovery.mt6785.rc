@@ -1,4 +1,4 @@
-import /init.recovery.microtrust.rc
+import /microtrust.rc
 
 on fs
     install_keyring
